@@ -1,2 +1,12 @@
 # LTS_Tokyo_Hackathon_2024
-LTSグループ Tokyo Hackathon 2024 Team B
+LTS Group Tokyo Hackathon 2024 Team B
+
+## Architecture
+
+## MVP
+
+## Run
+
+## Build
+
+## Deploy
