@@ -1,0 +1,40 @@
+# -------------------------------------------------------
+# package install
+FROM node:18-alpine as dependecy
+WORKDIR /app
+
+COPY ./package.json ./package-lock.json ./
+RUN npm install --production --no-progress
+
+# --------------------------------------------------------
+# build
+FROM node:18-alpine as build
+
+WORKDIR /work
+
+COPY . /work/
+
+RUN npm install --no-progres
+
+RUN npm run build
+
+# -------------------------------------------------------
+# deploy
+FROM node:18-alpine as runtime
+
+WORKDIR /app
+
+COPY ./package.json ./package-lock.json ./
+COPY --from=dependecy /app/node_modules ./node_modules
+COPY --from=build /work/dist ./dist
+COPY --from=build /work/prisma ./prisma
+
+RUN npx prisma generate
+
+## PID1問題に対応する
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini", "--"]
+
+EXPOSE 8080
+
+CMD ["node", "dist/index.js"]
