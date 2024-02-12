@@ -1,4 +1,13 @@
-import { Server } from "./lib/app";
+// import { Server } from "./lib/app";
 
-const server = new Server();
-server.Run();
+import { genAI } from "./lib/service/fetchAI";
+
+// const server = new Server();
+// server.Run();
+
+const summary = async() => {
+   const summary = await genAI();
+   console.log(summary);
+};
+
+summary();

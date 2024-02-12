@@ -100,3 +100,4 @@ backend/.env.production.local
 backend/.env.local
 
 backend/dist
+backend/report.json
