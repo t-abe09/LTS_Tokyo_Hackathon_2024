@@ -4,7 +4,7 @@ import * as pdfjsLib from "pdfjs-dist";
 
 export async function genAI():Promise<string> {
     // pdfを読み込み
-    const pdfPath = 'sample.pdf';
+    const pdfPath = '/Users/taichi/src/wakuto/LTS_Tokyo_Hackathon_2024/LTS_IR.pdf';
     const text = await getTextFromPdf(pdfPath);
 
     // ライブラリのインスタンスを生成

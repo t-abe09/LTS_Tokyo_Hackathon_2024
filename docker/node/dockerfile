@@ -3,7 +3,7 @@
 FROM node:18-alpine as dependecy
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./
+COPY backend/package.json backend/package-lock.json ./
 RUN npm install --production --no-progress
 
 # --------------------------------------------------------
@@ -12,7 +12,7 @@ FROM node:18-alpine as build
 
 WORKDIR /work
 
-COPY . /work/
+COPY backend/ /work/
 
 RUN npm install --no-progres
 
@@ -24,7 +24,7 @@ FROM node:18-alpine as runtime
 
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./
+COPY backend/package.json backend/package-lock.json ./
 COPY --from=dependecy /app/node_modules ./node_modules
 COPY --from=build /work/dist ./dist
 COPY --from=build /work/prisma ./prisma

@@ -1,4 +1,6 @@
 import express from 'express';
+import { genAI } from './service/fetchAI';
+
 
 export class Server {
     readonly app = express();
@@ -7,12 +9,13 @@ export class Server {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         
-        this.app.get('/', (_, res) => {
-          res.send('Hello World!');
+        this.app.get('/summary',async (_, res) =>{
+          const summary =  await genAI();
+          res.send({data: summary});
         });
         
         this.app.listen(8080, () => {
-          console.log('Example app listening on port 3000!');
+          console.log('listening on port 8080!');
         });
     }
 }
