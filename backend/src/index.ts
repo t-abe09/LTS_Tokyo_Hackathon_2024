@@ -1,13 +1,19 @@
 // import { Server } from "./lib/app";
 
-import { fetchStockData } from "./lib/service/fetchYahooFinance";
-
 // const server = new Server();
 // server.Run();
 
-const stocks = ["AAPL", "GOOG", "TSLA", "MSFT"];
+import { fetchStockData } from "./lib/service/fetchYahooFinance";
 
-const data = fetchStockData(stocks);
-console.log(data);
+async function main() {
+  const stocks = ["AAPL", "GOOG", "TSLA", "MSFT"];
 
-// const data = await fetchStockData(stocks);)
+  const data = await fetchStockData(stocks);
+
+  // 取得結果の表示
+  data.map((stock) => {
+    console.log(stock);
+  });
+}
+
+main();
