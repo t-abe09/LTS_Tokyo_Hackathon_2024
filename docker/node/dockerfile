@@ -3,7 +3,7 @@
 FROM node:18-alpine as dependecy
 WORKDIR /app
 
-COPY backend/package.json backend/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install --production --no-progress
 
 # --------------------------------------------------------
@@ -12,7 +12,7 @@ FROM node:18-alpine as build
 
 WORKDIR /work
 
-COPY backend/ /work/
+COPY . /work
 
 RUN npm install --no-progres
 
@@ -24,12 +24,9 @@ FROM node:18-alpine as runtime
 
 WORKDIR /app
 
-COPY backend/package.json backend/package-lock.json ./
-COPY --from=dependecy /app/node_modules ./node_modules
-COPY --from=build /work/dist ./dist
-COPY --from=build /work/prisma ./prisma
-
-RUN npx prisma generate
+COPY package.json package-lock.json ./
+COPY --from=dependecy /app/node_modules node_modules
+COPY --from=build /work/dist dist
 
 ## PID1問題に対応する
 RUN apk add --no-cache tini
