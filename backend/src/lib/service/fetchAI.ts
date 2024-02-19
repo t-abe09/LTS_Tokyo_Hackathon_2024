@@ -2,11 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as fs from "fs";
 import * as pdfjsLib from "pdfjs-dist";
 
-export async function genAI():Promise<string> {
-    // pdfを読み込み
-    const pdfPath = '/Users/taichi/src/wakuto/LTS_Tokyo_Hackathon_2024/LTS_IR.pdf';
-    const text = await getTextFromPdf(pdfPath);
-
+export async function genAI(text:string):Promise<string> {
     // ライブラリのインスタンスを生成
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_PRO_API_KEY!);
     // modelを生成
@@ -30,7 +26,7 @@ export async function genAI():Promise<string> {
 }
 
 // PDFファイルからテキストを取得する処理
-async function getTextFromPdf(pdfPath: string): Promise<string> {
+export async function getTextFromPdf(pdfPath: string): Promise<string> {
   const pdfData = new Uint8Array(fs.readFileSync(pdfPath));
 
   const loadingTask = pdfjsLib.getDocument({ data: pdfData });

@@ -1,5 +1,5 @@
 import express from 'express';
-import { genAI } from './service/fetchAI';
+// import { genAI } from './service/fetchAI';
 
 
 export class Server {
@@ -10,11 +10,12 @@ export class Server {
         this.app.use(express.urlencoded({ extended: true }));
         
         this.app.get('/summary',async (_, res) =>{
-          const summary =  await genAI();
-          res.send({data: summary});
+          // const summary =  await genAI("test");
+          res.send({data: "test"});
         });
         
-        this.app.listen(8080, () => {
+        const port:number = process.env.PORT ? parseInt(process.env.PORT) : 8080;
+        this.app.listen(port, () => {
           console.log('listening on port 8080!');
         });
     }
