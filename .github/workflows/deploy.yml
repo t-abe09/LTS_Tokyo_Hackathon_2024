@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "src/**/*.ts"
+    paths:
+      - "backend/src/**/*.ts"
 
 env:
   SERVICE_NAME: hackthon-demo-app
@@ -13,7 +13,7 @@ env:
   GCP_REGION: asia-northeast1
   GCP_REPOSITORY: node-api
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-  IMAGE: asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/node-api/hackthon-demo-app:${{ github.sha }}
+  IMAGE: asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/node-api/:${{ github.sha }}
 
 jobs:
   deploy:
