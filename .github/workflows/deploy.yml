@@ -13,7 +13,7 @@ env:
   GCP_REGION: asia-northeast1
   GCP_REPOSITORY: node-api
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-  IMAGE: asia-northeast1-docker.pkg.dev/${{ GCP_PROJECT_ID }}/${{ GCP_REPOSITORY }}/${{ SERVICE_NAME }}:${{ github.sha }}
+  IMAGE: asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/node-api/hackthon-demo-app:${{ github.sha }}
 
 jobs:
   deploy:
