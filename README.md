@@ -1,6 +1,10 @@
 # LTS_Tokyo_Hackathon_2024
 LTS Group Tokyo Hackathon 2024 Team B
 
+## Demo App URL
+
+https://hackthon-demo-app-l5gxoksfwa-an.a.run.app
+
 https://docs.google.com/spreadsheets/d/1-AdqhQyj-uv4mbVIf-VABBC92BVB6Hv4/edit#gid=1352152124
 ## Theme
 
