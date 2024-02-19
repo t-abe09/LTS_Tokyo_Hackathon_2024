@@ -64,7 +64,7 @@ npm run build
 ## Test
 
 ```bash
-npm run 
+npm run test
 ```
 
 ## Deploy
