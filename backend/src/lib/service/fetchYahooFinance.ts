@@ -1,8 +1,11 @@
 import yahooFinance from "yahoo-finance2";
+import { createObjectCsvWriter } from 'csv-writer';
+import { Chart } from "chart.js";
+import * as fs from "fs";
 
 export async function fetchStockData(symbols: string[]): Promise<StockData[]> {
   // 開始日
-  const startDate = new Date('2024-02-12');
+  const startDate = new Date('2022-02-12');
 
   // 終了日
   const endDate = new Date();
@@ -34,6 +37,53 @@ export async function fetchStockData(symbols: string[]): Promise<StockData[]> {
     stockData.push(stock);
   }
   return stockData;
+}
+
+export function toCsv(data: StockData[]) {
+  for(let i = 0; i < data.length; i++) {
+    const csvWriter = createObjectCsvWriter({
+      path: `${data[i].company}.csv`,
+      header: [
+        { id: 'date', title: 'date' },
+        { id: 'open', title: 'open' },
+        { id: 'high', title: 'high' },
+        { id: 'low', title: 'low' },
+        { id: 'close', title: 'close' },
+      ],
+    });
+
+    csvWriter.writeRecords(data[i].stockHistory)
+    .then(() => console.log(`The CSV file was written successfully: ${data[i].company}.csv`));
+  }
+}
+
+export function toChart(data: StockData[]) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+  
+  const chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: data.map((d) => d.stockHistory.map((s) => s.date)),
+      datasets: [
+        {
+          label: "株価",
+          data: data.map((d) => d.stockHistory.map((s) => s.close)),
+        },
+      ],
+    },
+  });
+
+  const image = chart.toBase64Image();
+
+fs.writeFile("output.png", image, (err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  console.log("PNG画像を出力しました。");
+});
 }
 
 type StockData = {
