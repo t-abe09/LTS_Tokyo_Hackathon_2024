@@ -7,11 +7,13 @@ AI Reviewer Agent
 ## Theme 
 
 株価データを使用した、株価向上のための考察・提案
+
 Consideration and proposal for stock price improvement using stock price data
 
 ## Concept
 
 人の視野を広げる
+
 Expand people's horizons
 
 ## Notice
